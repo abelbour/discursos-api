@@ -2,7 +2,7 @@
 
 ## Correr como Built-In Server
 
-** php -S localhost:port /ruta/al/proyecto **
+**php -S localhost:port /ruta/al/proyecto**
 
 ## Estructura JSON Respuestas
 
