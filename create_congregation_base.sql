@@ -68,3 +68,13 @@ create table agreement(
     time_lapse_id smallint
 );
 
+create table user (
+    user_id smallint primary key auto_increment,
+    username varchar(50)
+);
+
+create table user_congregation(
+    user_congregation_id smallint primary key auto_increment,
+    user_id smallint,
+    congregation_id smallint
+);
