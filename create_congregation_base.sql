@@ -1,80 +1,63 @@
-create schema conferences;
-
-use conferences;
-
 create table congregation(
-	congregation_id smallint primary key auto_increment,
+	congregation_id integer primary key AUTOINCREMENT,
     name varchar(25),
     address varchar(100),
     description varchar (255),
     time_meeting varchar(100),
-    size_id smallint
+    size_id integer
 );
 
 create table size (
-	size_id smallint primary key auto_increment,
+	size_id integer primary key AUTOINCREMENT,
     description varchar(50)
 );
 
 create table person_type(
-	person_type smallint primary key auto_increment,
-    descript varchar(15)
+	person_type integer primary key AUTOINCREMENT,
+    description varchar(15)
 );
 
 create table person(
-	person_id smallint primary key auto_increment,
+	person_id integer primary key AUTOINCREMENT,
     name varchar(50),
     phone varchar(50),
     email varchar(50),
-    congregation_id smallint,
-    person_type_id smallint
+    congregation_id integer,
+    person_type_id integer
 );
 
 create table sketch(
-	sketch_id smallint primary key auto_increment,
+	sketch_id integer primary key AUTOINCREMENT,
     title varchar(255),
-    sketch_number smallint
+    sketch_number integer
 );
 
 create table person_sketch(
-	person_sketch_id smallint primary key auto_increment,
-    person_id smallint,
-    sketch_id smallint
-);
-
-create table person_congregation(
-	person_congregation_id smallint primary key auto_increment,
-    person_id smallint,
-    congregation_id smallint
+	person_sketch_id integer primary key AUTOINCREMENT,
+    person_id integer,
+    sketch_id integer
 );
 
 create table time_lapse(
-	time_lapse_id smallint primary key auto_increment,
+	time_lapse_id integer primary key AUTOINCREMENT,
     date_from date,
     date_to date
 );
 
-create table congregation_congregation_time_lapse(
-	congregation_congregation_time_lapse_id smallint primary key auto_increment,
-    congregation_id_1 smallint,
-    congregation_id_2 smallint,
-    time_lapse_id smallint
-);
-
 create table agreement(
-	agreement_id smallint primary key auto_increment,
-    congregation_id smallint,
-    person_id smallint,
-    time_lapse_id smallint
+	agreement_id integer primary key AUTOINCREMENT,
+    congregation_id integer,
+    person_id integer,
+    time_lapse_id integer
 );
 
 create table user (
-    user_id smallint primary key auto_increment,
+    user_id integer primary key AUTOINCREMENT,
     username varchar(50)
 );
 
 create table user_congregation(
-    user_congregation_id smallint primary key auto_increment,
-    user_id smallint,
-    congregation_id smallint
+    user_congregation_id integer primary key AUTOINCREMENT,
+    user_id integer,
+    congregation_id integer
 );
