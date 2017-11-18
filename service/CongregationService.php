@@ -1,27 +1,28 @@
 <?php
-
 require 'PersonService.php';
 
-class CongregationService extends SQLite3 {
+class CongregationService {
+
+  private $db;
 
   function __construct() {
-        $this->open('congregation.db');
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+        $this->db = new PDO($config['url_sql']);
   }
 
 	public function getCongregationByID($id){
-		$results = $this->query("SELECT * FROM congregation where congregation_id = ".$id );              
+		$results = $this->db->query("SELECT * FROM congregation where congregation_id = ".$id );              
 
-		return extractArrayBasic($results, array());
+		return $this->extractArrayBasic($results, array());
 	}
 
 	public function getCongregationByUserID($userID){
-		$results = $this->query("SELECT * FROM congregation where user_id = " . $userID);
-		return extractArrayBasic($results, array());
+		$results = $this->db->query("SELECT c.* FROM congregation c join user_congregation uc on uc.congregation_id = c.congregation_id join user u on u.user_id = uc.user_id where u.user_id = " . $userID);
+		return $this->extractArrayBasic($results, array());
 	}
 
   public function getCongregationAndPersonByID($id){
-    $dataCongregation = extractArrayBasic(getCongregationByID($id), array());
-
+    $dataCongregation = $this->getCongregationByID($id);
     $personService = new PersonService();
     $persons = $personService->getPersonByCongregationID($id);
 
@@ -33,19 +34,19 @@ class CongregationService extends SQLite3 {
   private function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
-     while($res = $queryResult->fetchArray()){ 
+    foreach ($queryResult as $res) { 
 
-          $row[$i]['congregation_id'] = $res['congregation_id']; 
-          $row[$i]['name'] = $res['name']; 
-          $row[$i]['address'] = $res['address'];
-          $row[$i]['description'] = $res['description'];
-          $row[$i]['time_meeting'] = $res['time_meeting'];
-          $row[$i]['size_id'] = $res['size_id']; 
+        $row[$i]['congregation_id'] = $res['congregation_id']; 
+        $row[$i]['name'] = $res['name']; 
+        $row[$i]['address'] = $res['address'];
+        $row[$i]['description'] = $res['description'];
+        $row[$i]['time_meeting'] = $res['time_meeting'];
+        $row[$i]['size_id'] = $res['size_id']; 
 
-          $i++; 
+        $i++; 
 
-      }
-
+    }
+     
       return $row;
   }
 }

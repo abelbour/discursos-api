@@ -3,7 +3,7 @@
 try {
 	$baseInstall = file_get_contents("insert_data.sql");
 
-	$bd = new SQLite3('congregation.db');
+	$bd = new PDO('sqlite:/Users/samuelgarcia/www/conferencias/conference.db:');
 
 	$results = $bd->exec($baseInstall);
 

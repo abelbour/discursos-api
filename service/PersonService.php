@@ -1,44 +1,53 @@
 <?php
 
-class PersonService extends SQLite3  {
+class PersonService {
 	
+	private $db;
+
 	function __construct() {
-        $this->open('congregation.db');
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+        $this->db = new PDO($config['url_sql']);
   	}
 
 	public function getPersonByID($id){
-		$results = $this->query("SELECT * FROM person where person_id = ".$id );              
+		$results = $this->db->query("SELECT * FROM person where person_id = ".$id );              
 
-		return extractArray($results, array());
+		return $this->extractArrayBasic($results, array());
 	}
 
 	public function getPersonByName($id){
-		$results = $this->query("SELECT * FROM person where name = ".$id );              
+		$results = $this->db->query("SELECT * FROM person where name like '%".$id."%'" );              
 
-		return extractArray($results, array());
+		return $this->extractArrayBasic($results, array());
 	}
 
 	public function getPersonByCongregationID($id){
-		$results = $this->query("SELECT * FROM person where congregation_id = ".$id );              
+		$results = $this->db->query("SELECT * FROM person where congregation_id = ".$id );              
 
-		return extractArray($results, array());
+		return $this->extractArrayBasic($results, array());
 	}
 
-	private function extractArrayBasic($queryResult, $row){
+	public function getPersonAndSketchByID($id){
+		$persons = $this->extractArrayBasic(getPersonByID($id), array());
+
+		$sketchs = $sckechService->getSketchsByPersonID($id);
+		$persons[0]['sketchs'] = $sketchs;
+
+		return $persons;
+	}
+
+	public function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
-     while($res = $queryResult->fetchArray()){ 
-
-          $row[$i]['person_id'] = $res['person_id']; 
+     foreach ($queryResult as $res) {
+ 		  $row[$i]['person_id'] = $res['person_id']; 
           $row[$i]['name'] = $res['name']; 
           $row[$i]['phone'] = $res['phone'];
           $row[$i]['email'] = $res['email'];
           $row[$i]['congregation_id'] = $res['congregation_id'];
-          $row[$i]['person_type_id'] = $res['person_type_id']; 
-
-          $i++; 
-
-      }
+          $row[$i]['person_type_id'] = $res['person_type_id'];
+          $i++;
+     }
 
       return $row;
   }

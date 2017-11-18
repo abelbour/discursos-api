@@ -1,21 +1,30 @@
 <?php
 
-class SketchService  extends SQLite3 {
+class SketchService {
+
+	private $db;
 	
 	function __construct() {
-        $this->open('congregation.db');
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini");
+        $this->db = new PDO($config['url_sql']);
   	}
 
 	public function getSketchByNumber($number){
-		$results = $this->query("SELECT * FROM sketch where sketch_number = ".$number );              
+		$results = $this->db->query("SELECT * FROM sketch where sketch_number = ".$number );              
 
-		return extractArray($results, array());
+		return $this->extractArrayBasic($results, array());
+	}
+
+	public function getSketchsByPersonID($personId){
+		$results = $this->db->query("SELECT s.* FROM sketch s join person_sketch sp on sp.sketch_id = s.sketch_id where sp.person_id = ".$personId );              
+
+		return $this->extractArrayBasic($results, array());
 	}
 
 	private function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
-     while($res = $queryResult->fetchArray()){ 
+     foreach ($queryResult as $res) { 
           $row[$i]['sketch_id'] = $res['sketch_id']; 
           $row[$i]['title'] = $res['title']; 
           $row[$i]['sketch_number'] = $res['sketch_number']; 
