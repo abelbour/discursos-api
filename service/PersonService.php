@@ -39,6 +39,10 @@ class PersonService {
 	public function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
+    if(is_null($queryResult) || empty($queryResult)){
+      return array("status"=>400, "message"=>"query not found");
+    }
+
      foreach ($queryResult as $res) {
  		  $row[$i]['person_id'] = $res['person_id']; 
           $row[$i]['name'] = $res['name']; 

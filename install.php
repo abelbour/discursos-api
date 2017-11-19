@@ -2,7 +2,7 @@
 	
 try {
 	$baseInstall = file_get_contents("create_congregation_base.sql");
-	$bd = new PDO('sqlite:/Users/samuelgarcia/www/conferencias/conference.db:');
+	$bd = new PDO('sqlite:/Users/samuelgarcia/www/conferencias/conference.db');
 
 	$results = $bd->exec($baseInstall);
 

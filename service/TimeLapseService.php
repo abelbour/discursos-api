@@ -36,6 +36,10 @@ class TimeLapseService {
   	private function extractArrayBasic($queryResult, $row){
 	    $i = 0; 
 
+      if(is_null($queryResult) || empty($queryResult)){
+        return array("status"=>400, "message"=>"query not found");
+      }
+
 	    foreach ($queryResult as $res) { 
 
 	        $row[$i]['time_lapse_id'] = $res['time_lapse_id']; 

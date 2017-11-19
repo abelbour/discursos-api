@@ -24,6 +24,10 @@ class SketchService {
 	private function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
+    if(is_null($queryResult) || empty($queryResult)){
+      return array("status"=>400, "message"=>"query not found");
+    }
+
      foreach ($queryResult as $res) { 
           $row[$i]['sketch_id'] = $res['sketch_id']; 
           $row[$i]['title'] = $res['title']; 

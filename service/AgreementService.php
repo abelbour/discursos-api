@@ -30,6 +30,10 @@ class AgreementService {
 		$timeLapseService = new TimeLapseService();
 	    $i = 0; 
 
+	    if(is_null($queryResult) || empty($queryResult)){
+	      return array("status"=>400, "message"=>"query not found");
+	    }
+
 	    foreach ($queryResult as $res) { 
 
 	        $row[$i]['agreement_id'] = $res['agreement_id']; 
