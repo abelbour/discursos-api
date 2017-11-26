@@ -33,6 +33,16 @@ class TimeLapseService {
 		  return $this->extractArrayBasic($results, array())[0];
   	}
 
+    public function insertTimeLapse($json){
+      try{
+          $insert = "INSERT INTO time_lapse (date_from, date_to) VALUES ($json->date_from, $json->date_to);";
+          $results = $bd->exec($insert);
+          return true;
+        } catch(Exception $e){
+          return false;
+        }
+    }
+
   	private function extractArrayBasic($queryResult, $row){
 	    $i = 0; 
 

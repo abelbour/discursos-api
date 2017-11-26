@@ -31,6 +31,28 @@ class CongregationService {
     return $dataCongregation;
   }
 
+  public function insertCongregation($json){
+    try{
+      $insert = "INSERT INTO congregation (name, address, description, time_meeting, size_id) VALUES ($json->name, $json->address, $json->description, $json->time_meeting, $json->size_id);";
+      $results = $bd->exec($insert);
+      return true;
+    } catch(Exception $e){
+      return false;
+    }
+    
+  }
+
+  public function insertUserCongregation($json){
+    try{
+      $insert = "INSERT INTO user_congregation (user_id, congregation_id) VALUES ($json->user_id, $json->congregation_id);";
+      $results = $bd->exec($insert);
+      return true;
+    } catch(Exception $e){
+      return false;
+    }
+    
+  }
+
   private function extractArrayBasic($queryResult, $row){
     $i = 0; 
 

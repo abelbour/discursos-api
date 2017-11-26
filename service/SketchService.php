@@ -21,6 +21,16 @@ class SketchService {
 		return $this->extractArrayBasic($results, array());
 	}
 
+	public function insertSketch($json){
+		try{
+	      $insert = "INSERT INTO sketch (title, sketch_number) VALUES ($json->title, $json->sketch_number)";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }
+	}
+
 	private function extractArrayBasic($queryResult, $row){
     $i = 0; 
 

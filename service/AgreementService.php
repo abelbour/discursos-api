@@ -24,6 +24,16 @@ class AgreementService {
 		return $this->extractArrayBasic($results, array());
 	}
 
+	public function insertAgreement($json){
+      try{
+          $insert = "INSERT INTO agreement (congregation_id, person_id, time_lapse_id) VALUES ($json->congregation_id, $json->person_id, $json->time_lapse_id);";
+          $results = $bd->exec($insert);
+          return true;
+        } catch(Exception $e){
+          return false;
+        }
+    }
+
 	function extractArrayBasic($queryResult, $row){
 		$personService = new PersonService();
 		$congregationService = new CongregationService();

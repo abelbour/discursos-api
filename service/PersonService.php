@@ -36,6 +36,26 @@ class PersonService {
 		return $persons;
 	}
 
+	public function insertPerson($json){
+	    try{
+	      $insert = "INSERT INTO person (name, phone, email, congregation_id, person_type_id) VALUES ($json->name, $json->phone, $json->email, $json->congregation_id, $json->person_type_id);";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }    
+	}
+
+	public function insertPersonSketch($json){
+	    try{
+	      $insert = "INSERT INTO person_sketch (person_id, sketch_id) VALUES ($json->person_id, $json->sketch_id);";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }    
+	}
+
 	public function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
