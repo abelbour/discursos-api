@@ -53,9 +53,9 @@ class TimeLapseService {
         }
     }
 
-    public function deleteTimeLapse($json){
+    public function deleteTimeLapse($time_lapse_id){
       try{
-          $insert = "DELETE FROM time_lapse WHERE time_lapse_id = $json->time_lapse_id";
+          $insert = "DELETE FROM time_lapse WHERE time_lapse_id = $time_lapse_id";
           $results = $bd->exec($insert);
           return true;
         } catch(Exception $e){

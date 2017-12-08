@@ -76,9 +76,9 @@ class PersonService {
 	    }    
 	}
 
-	public function deletePersonSketch($json){
+	public function deletePersonSketch($person_id, $sketch_id){
 	    try{
-	      $insert = "DELETE person_sketch WHERE person_id = $json->person_id AND sketch_id = $json->sketch_id;";
+	      $insert = "DELETE person_sketch WHERE person_id = $person_id AND sketch_id = $sketch_id;";
 	      $results = $bd->exec($insert);
 	      return true;
 	    } catch(Exception $e){

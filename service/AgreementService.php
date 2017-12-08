@@ -44,9 +44,9 @@ class AgreementService {
         }
     }
 
-    public function deleteAgreement($json){
+    public function deleteAgreement($agreement_id){
       try{
-          $insert = "DELETE FROM agreement WHERE agreement_id = $json->agreement_id;";
+          $insert = "DELETE FROM agreement WHERE agreement_id = $agreement_id;";
           $results = $bd->exec($insert);
           return true;
         } catch(Exception $e){

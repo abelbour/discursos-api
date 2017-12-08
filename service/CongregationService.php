@@ -64,9 +64,9 @@ class CongregationService {
     
   }
 
-  public function deleteCongregation($json){
+  public function deleteCongregation($congregation_id){
     try{
-      $insert = "DELETE FROM congregation WHERE congregation_id = $json->congregation_id;";
+      $insert = "DELETE FROM congregation WHERE congregation_id = $congregation_id;";
       $results = $bd->exec($insert);
       return true;
     } catch(Exception $e){

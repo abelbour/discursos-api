@@ -41,9 +41,9 @@ class SketchService {
 	    }
 	}
 
-	public function deleteSketch($json){
+	public function deleteSketch($sketch_number){
 		try{
-	      $insert = "DELETE FROM sketch WHERE sketch_number = $json->sketch_number";
+	      $insert = "DELETE FROM sketch WHERE sketch_number = $sketch_number";
 	      $results = $bd->exec($insert);
 	      return true;
 	    } catch(Exception $e){
