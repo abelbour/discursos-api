@@ -34,6 +34,26 @@ class AgreementService {
         }
     }
 
+    public function updateAgreement($json){
+      try{
+          $insert = "UPDATE  agreement SET congregation_id = $json->congregation_id , person_id = $json->person_id, time_lapse_id  = $json->time_lapse_id WHERE agreement_id = $json->agreement_id;";
+          $results = $bd->exec($insert);
+          return true;
+        } catch(Exception $e){
+          return false;
+        }
+    }
+
+    public function deleteAgreement($json){
+      try{
+          $insert = "DELETE FROM agreement WHERE agreement_id = $json->agreement_id;";
+          $results = $bd->exec($insert);
+          return true;
+        } catch(Exception $e){
+          return false;
+        }
+    }
+
 	function extractArrayBasic($queryResult, $row){
 		$personService = new PersonService();
 		$congregationService = new CongregationService();

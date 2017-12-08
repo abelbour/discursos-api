@@ -42,9 +42,31 @@ class CongregationService {
     
   }
 
+  public function updateCongregation($json){
+    try{
+      $insert = "UPDATE congregation SET name = $json->name, address = $json->address, description = $json->description, time_meeting = $json->time_meeting, size_id = $json->size_id WHERE congregation_id = $json->congregation_id;";
+      $results = $bd->exec($insert);
+      return true;
+    } catch(Exception $e){
+      return false;
+    }
+    
+  }
+
   public function insertUserCongregation($json){
     try{
       $insert = "INSERT INTO user_congregation (user_id, congregation_id) VALUES ($json->user_id, $json->congregation_id);";
+      $results = $bd->exec($insert);
+      return true;
+    } catch(Exception $e){
+      return false;
+    }
+    
+  }
+
+  public function deleteCongregation($json){
+    try{
+      $insert = "DELETE FROM congregation WHERE congregation_id = $json->congregation_id;";
       $results = $bd->exec($insert);
       return true;
     } catch(Exception $e){

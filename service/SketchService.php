@@ -31,6 +31,26 @@ class SketchService {
 	    }
 	}
 
+	public function updateSketch($json){
+		try{
+	      $insert = "UPDATE sketch SET title = $json->title, sketch_number = $json->sketch_number WHERE sketch_number = $json->sketch_number";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }
+	}
+
+	public function deleteSketch($json){
+		try{
+	      $insert = "DELETE FROM sketch WHERE sketch_number = $json->sketch_number";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }
+	}
+
 	private function extractArrayBasic($queryResult, $row){
     $i = 0; 
 

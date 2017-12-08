@@ -43,6 +43,26 @@ class TimeLapseService {
         }
     }
 
+    public function insertTimeLapse($json){
+      try{
+          $insert = "UPDATE time_lapse SET date_from = $json->date_from, date_to = $json->date_to WHERE time_lapse_id = $json->time_lapse_id";
+          $results = $bd->exec($insert);
+          return true;
+        } catch(Exception $e){
+          return false;
+        }
+    }
+
+    public function deleteTimeLapse($json){
+      try{
+          $insert = "DELETE FROM time_lapse WHERE time_lapse_id = $json->time_lapse_id";
+          $results = $bd->exec($insert);
+          return true;
+        } catch(Exception $e){
+          return false;
+        }
+    }
+
   	private function extractArrayBasic($queryResult, $row){
 	    $i = 0; 
 

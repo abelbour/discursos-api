@@ -56,6 +56,36 @@ class PersonService {
 	    }    
 	}
 
+	public function updatePerson($json){
+	    try{
+	      $insert = "UPDATE person SET name = $json->name, phone = $json->phone, email = $json->email, congregation_id = $json->congregation_id, person_type_id = $json->person_type_id  WHERE person_id = $json->person_id;";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }    
+	}
+
+	public function deletePerson($json){
+	    try{
+	      $insert = "DELETE person WHERE person_id = $json->person_id;";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }    
+	}
+
+	public function deletePersonSketch($json){
+	    try{
+	      $insert = "DELETE person_sketch WHERE person_id = $json->person_id AND sketch_id = $json->sketch_id;";
+	      $results = $bd->exec($insert);
+	      return true;
+	    } catch(Exception $e){
+	      return false;
+	    }    
+	}
+
 	public function extractArrayBasic($queryResult, $row){
     $i = 0; 
 
